@@ -1,0 +1,71 @@
+Helper methods to set font foreground and/or background color in Jenkins pipeline.<br>
+Based on <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank">ANSI_escape_code</a><br>
+Depends on <a href="https://plugins.jenkins.io/ansicolor/" target="_blank">ansicolor jenkins plugin</a>
+
+<br>
+<br>
+<b>Change foreground color</b>
+<ul>
+<li><b>setFgBlack()</b> - sets foreground color to Black</li>
+<li><b>setFgRed()</b> - sets foreground color to Red</li>
+<li><b>setFgGreen()</b> - sets foreground color to Green</li>
+<li><b>setFgYellow()</b> - sets foreground color to Yellow</li>
+<li><b>setFgBlue()</b> - sets foreground color to Blue</li>
+<li><b>setFgMagenta()</b> - sets foreground color to Magenta</li>
+<li><b>setFgCyan()</b> - sets foreground color to Cyan</li>
+<li><b>setFgWhite()</b> - sets foreground color to White</li>
+</ul>
+
+<b>Change background color</b>
+<ul>
+<li><b>setBgBlack()</b> - sets background color to Black</li>
+<li><b>setBgRed()</b> - sets background color to Red</li>
+<li><b>setBgGreen()</b> - sets background color to Green</li>
+<li><b>setBgYellow()</b> - sets background color to Yellow</li>
+<li><b>setBgBlue()</b> - sets background color to Blue</li>
+<li><b>setBgMagenta()</b> - sets background color to Magenta</li>
+<li><b>setBgCyan()</b> - sets background color to Cyan</li>
+<li><b>setBgWhite()</b> - sets background color to White</li>
+</ul>
+
+<b>Apply font effects</b>
+<ul>
+<li><b>setBold()</b> - use bold font</li>
+<li><b>setItalic()</b> - use italic font</li>
+<li><b>setUnderline()</b> - use underline effect for font</li>
+<li><b>setCrossed()</b> - use crossed font effect</li>
+</ul>
+
+<b>Reset to defaults</b>
+<ul>
+<li><b>resetColor()</b> - reset all font effects and color to defaults</li>
+</ul>
+
+<b>Usage</b>
+<br>
+You can apply several effects at the time. For instance
+
+<pre>
+@Library('jenkins-shared-library@master') _
+
+pipeline {
+    agent any
+
+    options {
+        ansiColor("xterm")
+    }
+
+    stages {
+        stage('Test') {
+            steps {
+                script {
+                    font.setBgYellow()
+                    font.setItalic()
+                    echo "Test"
+                    font.resetColor()
+                }
+            }
+        }
+    }
+}
+</pre>
