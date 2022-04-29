@@ -1,0 +1,40 @@
+Helper methods to make logging more readable in the jenkins console output.<br>
+Based on <a href="https://en.wikipedia.org/wiki/ANSI_escape_code" target="_blank">ANSI_escape_code</a><br>
+Depends on <a href="https://plugins.jenkins.io/ansicolor/" target="_blank">ansicolor jenkins plugin</a>
+
+<br>
+<br>
+
+<ul>
+<li><b>debug(message)</b> - logs out message with bold and italic font and Blue foreground color</li>
+<li><b>info(message)</b> - logs out message with bold and italic font and Magenta foreground color</li>
+<li><b>warn(message)</b> - logs out message with bold and italic font on Yellow background</li>
+<li><b>error(message)</b> - logs out message with bold and italic font, White foreground color on Red background</li>
+<li><b>success(message)</b> - logs out message with bold and italic font, White foreground color on Green background</li>
+<li><b>fail(message)</b> - logs out message with bold and italic font, White foreground color on Red background</li>
+</ul>
+
+<br>
+<b>Usage</b>
+
+<pre>
+@Library('jenkins-shared-library@master') _
+
+pipeline {
+    agent any
+
+    options {
+        ansiColor("xterm")
+    }
+
+    stages {
+        stage('Test') {
+            steps {
+                script {
+                    logging.error("Error message")
+                }
+            }
+        }
+    }
+}
+</pre>
