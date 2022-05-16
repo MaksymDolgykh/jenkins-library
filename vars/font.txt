@@ -46,7 +46,7 @@ Depends on <a href="https://plugins.jenkins.io/ansicolor/" target="_blank">ansic
 You can apply several effects at the time. For instance
 
 <pre>
-@Library('jenkins-shared-library@master') _
+@Library('jenkins-library@master') _
 
 pipeline {
     agent any

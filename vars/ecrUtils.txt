@@ -1,0 +1,53 @@
+Utils to build and publish docker images to ECR<br>
+
+Depends on <a href="https://aws.amazon.com/cli/" target="_blank">aws-cli</a> and
+<a href="https://docs.docker.com/get-docker/" target="_blank">docker cli</a>
+
+<br>
+<br>
+<b>Utils:</b>
+<ul>
+<li><b>ecrLogin(regions, awsAccountId)</b> - perform ECR login ('docker login') for provided AWS account and regions.
+If awsAccountId is not provided, it get AWS account assumed by jenkins agent</li>
+<li><b>buildPublishDockerImage(image, dockerFile, regions = [], version = "latest", awsAccountId = null)</b> -
+build and publish docker image to ECR repository</li>
+<li><b>getLatestImageVersion(image, region)</b> - returns the most recent image version (by date).</li>
+</ul>
+
+<br>
+<b>Usage</b>
+
+<pre>
+@Library('jenkins-library@master') _
+
+pipeline {
+    agent any
+
+    options {
+        ansiColor("xterm")
+    }
+
+    stages {
+        stage('ECR login') {
+            steps {
+                script {
+                    ecrUtils.ecrLogin(["us-east-1"])
+                }
+            }
+        }
+        stage("Build and Publish ECR Image") {
+            steps {
+                script {
+                    ecrUtils.buildPublishDockerImage("exampleapp", "./docs/exampleapp.Dockerfile", ["us-east-1"])
+                }
+            }
+        }
+    }
+}
+</pre>
+
+In the above example it is going to perform "docker login" into XXXXXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com, then build
+docker image and publish it as XXXXXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/exampleapp:latest.
+
+XXXXXXXXXXXX in the above example is AWS account assumed by jenkins agent, however you can pass specific account ID.
+AWS credentials can be provided one or the other way (credentials file, environment variables, etc.)
