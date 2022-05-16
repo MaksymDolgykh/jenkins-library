@@ -1,0 +1,7 @@
+version: 1.0.1
+author: Maksym Dolgykh
+description: Jenkins shared library
+repository: https://github.com/MaksymDolgykh/jenkins-library
+google_site_verification: O4U1_nz2en_ImlO-GKIKxGofqKJ9u2us99PohiCouwY
+plugins:
+  - jekyll-sitemap
